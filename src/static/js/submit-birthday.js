@@ -11,12 +11,11 @@ export const submitBirthday = async (data) => {
       body: JSON.stringify(data),
     });
 
-    if (response.ok) {
-      const parsedData = await response.json();
-      console.log('Server response:', parsedData);
-    } else {
-      console.error('Request failed with status:', response.status);
-    }
+    response.ok
+      ? response.json().then((parsedData) => {
+          console.log('Server response:', parsedData);
+        })
+      : console.error('Request failed with status:', response.status);
   } catch (error) {
     console.error('An error occurred:', error);
   }

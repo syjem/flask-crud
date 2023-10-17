@@ -26,15 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const nameValue = name.value;
     const dateValue = date.value;
 
-    if (nameValue === '') {
-      displayError(name, errors.required);
-    } else if (nameValue.length < 3) {
-      displayError(name, errors.minLength);
-    }
+    nameValue === ''
+      ? displayError(name, errors.required)
+      : nameValue.length < 3
+      ? displayError(name, errors.minLength)
+      : null;
 
-    if (dateValue === '') {
-      displayError(date, errors.required);
-    }
+    dateValue === '' && displayError(date, errors.required);
 
     if (nameValue === '' || dateValue === '') {
       return;
