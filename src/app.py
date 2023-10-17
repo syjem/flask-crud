@@ -1,6 +1,6 @@
-from flask import Flask, render_template, jsonify, request
-from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS 
+from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, jsonify, request
 
 from config import Config
 
