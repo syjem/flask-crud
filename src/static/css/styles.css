@@ -1,0 +1,145 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #fff;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.header {
+  background-color: rgb(18, 130, 93);
+  padding: 3rem;
+}
+
+.header__h1 {
+  color: #fcfcfc;
+  font-size: 48px;
+  text-align: center;
+}
+
+.main {
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding: 1rem;
+  max-width: 1440px;
+  margin-inline: auto;
+  border-color: bisque;
+}
+
+.section,
+.article {
+  flex: 1;
+  gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.section__header,
+.article__header {
+  font-size: 2rem;
+}
+
+.article__header {
+  margin-top: 2rem;
+}
+
+.form__container,
+.table__container {
+  width: 100%;
+  height: auto;
+  margin-inline: auto;
+  padding-block: 1rem;
+}
+
+.form {
+  gap: 1rem;
+  display: flex;
+  max-width: 450px;
+  margin-inline: auto;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.input__container {
+  gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 1px;
+  border: 1px solid #eee;
+  outline: 2px solid rgb(10, 66, 199);
+}
+
+.submit__btn {
+  color: #fff;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 1px;
+  text-align: center;
+  border: 1px solid #eee;
+  background-color: #0b76e0;
+  outline: 2px solid #0b76e0;
+}
+
+table {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+table th,
+table td {
+  padding: 0.75rem;
+  vertical-align: middle;
+}
+
+.th-name {
+  text-align: left !important;
+}
+
+.td-date {
+  text-align: center;
+}
+
+tbody tr:nth-of-type(odd) {
+  background-color: rgb(179, 208, 255, 0.3);
+}
+
+.footer {
+  color: #fff;
+  padding: 5rem;
+  text-align: center;
+  background-color: #020617;
+}
+
+.error {
+  color: red;
+  font-style: italic;
+}
+
+@media screen and (min-width: 900px) {
+  .main {
+    flex-direction: row;
+  }
+
+  .section,
+  .article {
+    padding: 2rem;
+  }
+
+  .article__header {
+    margin-top: 0;
+  }
+}
