@@ -9,10 +9,6 @@ CORS(app)
 
 # Configs
 app.config.from_object(Config)
-app.config["TEMPLATES_AUTO_RELOAD"] = True
-app.config["SESSION_COOKIE_SECURE"] = True
-app.config["SESSION_COOKIE_SAMESITE"] = "None"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///birthdays.db"
 db = SQLAlchemy(app)
 
 
