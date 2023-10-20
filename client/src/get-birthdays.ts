@@ -6,9 +6,11 @@ export const fetchBirthdays = async () => {
     }
     const birthdays = await response.json();
     const tbody = document.querySelector('tbody');
-    tbody.innerHTML = '';
+    if (tbody) {
+      tbody.innerHTML = '';
+    }
 
-    birthdays.forEach((item) => {
+    birthdays.forEach((item: string[]) => {
       const row = document.createElement('tr');
       row.innerHTML = `
               <td>${item.name}</td>

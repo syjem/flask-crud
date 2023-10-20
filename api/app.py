@@ -5,7 +5,7 @@ from flask import Flask, jsonify, request
 from config import Config
 
 app = Flask(__name__)
-CORS(app) 
+CORS(app)
 
 # Configs
 app.config.from_object(Config)

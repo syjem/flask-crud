@@ -44,6 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     submitBirthday(data);
+    fetchBirthdays();
+    console.log(fetchBirthdays());
 
     // Reset the input fields
     name.value = '';
