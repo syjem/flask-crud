@@ -45,7 +45,7 @@ def index():
         
     birthdays = Birthdays.query.all()
 
-     # Create a list of dictionaries for each birthday
+    # Create a list of dictionaries for each birthday
     birthday_data = [{"name": birthday.name, "date": birthday.date} for birthday in birthdays]
         
     # Return the data as JSON
