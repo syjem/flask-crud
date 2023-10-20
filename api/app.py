@@ -38,6 +38,9 @@ def index():
         name = data.get("name")
         date = data.get("date")
 
+        if not name or data:
+            return jsonify({"message": "Please, enter a valid name and date."})
+
         user = Birthdays(name=name, date=date)
         db.session.add(user)
         db.session.commit()
@@ -46,7 +49,7 @@ def index():
     birthdays = Birthdays.query.all()
 
     # Create a list of dictionaries for each birthday
-    birthday_data = [{"name": birthday.name, "date": birthday.date} for birthday in birthdays]
+    birthday_data = [{'id': birthday.id, "name": birthday.name, "date": birthday.date} for birthday in birthdays]
         
     # Return the data as JSON
     return jsonify(birthday_data)
