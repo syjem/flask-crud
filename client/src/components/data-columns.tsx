@@ -1,78 +1,51 @@
 import { ColumnDef } from '@tanstack/react-table';
-import { Payment } from './data-table';
-import { Checkbox } from '@radix-ui/react-checkbox';
 import { Button } from './ui/button';
-import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
+import { ArrowUpDown, MoreHorizontal, Copy, Edit, Trash2 } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from './ui/dropdown-menu';
+} from '@/components/ui/dropdown-menu';
+import type { personType } from '@/hooks/useData';
+import clipboard from '@/utils/copy';
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<personType>[] = [
   {
-    id: 'select',
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected()}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
+    accessorKey: 'id',
+    header: 'ID',
     cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorKey: 'status',
-    header: 'Status',
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue('status')}</div>
+      <div className="capitalize pl-1">{row.getValue('id')}</div>
     ),
   },
   {
-    accessorKey: 'email',
+    accessorKey: 'name',
+    header: 'Name',
+    cell: ({ row }) => <div className="capitalize">{row.getValue('name')}</div>,
+  },
+  {
+    accessorKey: 'date',
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Email
+          Date
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue('email')}</div>,
-  },
-  {
-    accessorKey: 'amount',
-    header: () => <div className="text-right">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue('amount'));
-
-      // Format the amount as a dollar amount
-      const formatted = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-      }).format(amount);
-
-      return <div className="text-right font-medium">{formatted}</div>;
-    },
+    cell: ({ row }) => (
+      <div className="lowercase pl-4">{row.getValue('date')}</div>
+    ),
   },
   {
     id: 'actions',
     enableHiding: false,
+    header: 'Actions',
     cell: ({ row }) => {
-      const payment = row.original;
+      const person = row.original;
+      const nameAndDate = `id: ${person.id}, name: ${person.name}, birthday: ${person.date}`;
 
       return (
         <DropdownMenu>
@@ -83,14 +56,18 @@ export const columns: ColumnDef<Payment>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}>
-              Copy payment ID
+              className="text-slate-700 focus:text-slate-600 dark:focus:text-slate-600 font-semibold gap-[6px] cursor-pointer"
+              onClick={() => clipboard(nameAndDate)}>
+              <Copy className="h-4 w-4" /> Copy
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem className="text-emerald-700 focus:text-emerald-600 dark:focus:text-emerald-600 font-semibold gap-[6px] cursor-pointer">
+              <Edit className="h-4 w-4" /> Update
+            </DropdownMenuItem>
+            <DropdownMenuItem className="text-red-700 focus:text-red-600 dark:focus:text-red-600 font-semibold gap-[6px] cursor-pointer">
+              <Trash2 className="h-4 w-4" />
+              Delete
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
