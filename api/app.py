@@ -44,7 +44,7 @@ def index():
         user = Birthdays(name=name, date=date)
         db.session.add(user)
         db.session.commit()
-        return jsonify({"message": "Birthday added successfully!"})
+        return jsonify({"message": f"{name}'s birthday added successfully!"})
         
     birthdays = Birthdays.query.all()
 
