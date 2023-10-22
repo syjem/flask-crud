@@ -1,14 +1,22 @@
-import { AddBirthday } from './components/add-birthday';
-import { DataTableDemo } from './components/data-table';
 import { Toaster } from './components/ui/toaster';
+import Home from './pages/home';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import NewBirthday from './pages/new-birthday';
 
 function App() {
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Home />,
+    },
+    {
+      path: '/birthday/new',
+      element: <NewBirthday />,
+    },
+  ]);
   return (
     <>
-      <article className="max-w-2xl mx-auto py-20 text-black p-4">
-        <AddBirthday />
-        <DataTableDemo />
-      </article>
+      <RouterProvider router={router} />
       <Toaster />
     </>
   );

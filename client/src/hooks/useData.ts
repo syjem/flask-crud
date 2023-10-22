@@ -1,3 +1,4 @@
+import { fetcher } from '@/utils/fetcher';
 import { useFetch } from '@/hooks/useFetch';
 import { useState, useEffect } from 'react';
 
@@ -7,8 +8,10 @@ export type personType = {
   date: string;
 };
 
+export const url = 'http://127.0.0.1:5000/birthdays';
+
 export const useData = () => {
-  const { data } = useFetch();
+  const { data } = useFetch(url, fetcher);
   const [usersData, setUsersData] = useState([]);
 
   useEffect(() => {
@@ -21,7 +24,7 @@ export const useData = () => {
           date: date,
         };
       });
-      setUsersData(birthday);
+      setUsersData(birthday as never);
     }
   }, [data]);
 

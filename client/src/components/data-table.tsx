@@ -31,7 +31,7 @@ import {
 import { columns } from './data-columns';
 import { useData } from '@/hooks/useData';
 
-export function DataTableDemo() {
+export const DataTable = () => {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -167,4 +167,4 @@ export function DataTableDemo() {
       </div>
     </div>
   );
-}
+};

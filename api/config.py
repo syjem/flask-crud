@@ -6,7 +6,6 @@ load_dotenv()
 
 
 class Config:
-    TEMPLATES_AUTO_RELOAD = True
     SESSION_COOKIE_SECURE = True
     SESSION_COOKIE_SAMESITE = 'None'
     SECRET_KEY = os.getenv("SECRET_KEY")

@@ -1,4 +1,4 @@
-export const fetchBirthdays = async (url: string) => {
+export const fetcher = async (url: string) => {
   try {
     const response = await fetch(url);
     if (response.ok) {

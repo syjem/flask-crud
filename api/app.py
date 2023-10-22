@@ -23,13 +23,13 @@ class Birthdays(db.Model):
 with app.app_context():
     db.create_all()
 
-@app.after_request
-def after_request(response):
-    """Ensure responses aren't cached"""
-    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-    response.headers["Expires"] = 0
-    response.headers["Pragma"] = "no-cache"
-    return response
+# @app.after_request
+# def after_request(response):
+#     """Ensure responses aren't cached"""
+#     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+#     response.headers["Expires"] = 0
+#     response.headers["Pragma"] = "no-cache"
+#     return response
 
 @app.route('/birthdays', methods=["GET", "POST"])
 def index():
@@ -38,13 +38,15 @@ def index():
         name = data.get("name")
         date = data.get("date")
 
-        if not name or data:
-            return jsonify({"message": "Please, enter a valid name and date."})
+        if not name:
+            return jsonify({"error": "Please enter a valid name."})
+        if not date:
+            return jsonify({"error": "Please enter a valid date."})
 
         user = Birthdays(name=name, date=date)
         db.session.add(user)
         db.session.commit()
-        return jsonify({"message": f"{name}'s birthday added successfully!"})
+        return jsonify({"success": f"{name}'s birthday added successfully!"})
         
     birthdays = Birthdays.query.all()
 

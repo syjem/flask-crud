@@ -1,3 +1,6 @@
+import { toast } from '@/components/ui/use-toast';
+import { url } from '@/hooks/useData';
+import { FieldValues, useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -7,14 +10,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { FieldValues, useForm } from 'react-hook-form';
+import { Input } from '@/components/ui/input';
 import { Loader2 } from 'lucide-react';
-import { toast } from './ui/use-toast';
-import { url } from '@/hooks/useData';
+import { useNavigate } from 'react-router-dom';
 
-export const AddBirthday = () => {
+const NewBirthday = () => {
+  const navigate = useNavigate();
   const {
     reset,
     register,
@@ -50,6 +52,7 @@ export const AddBirthday = () => {
       console.error(error);
     }
     reset();
+    navigate('/');
   };
 
   return (
@@ -122,3 +125,5 @@ export const AddBirthday = () => {
     </Dialog>
   );
 };
+
+export default NewBirthday;
