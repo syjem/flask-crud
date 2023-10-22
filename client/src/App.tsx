@@ -1,19 +1,27 @@
+import LandingPage from './pages/landing-page';
 import { Toaster } from './components/ui/toaster';
-import { DataTable } from './components/data-table';
-import { PostBirthday } from './https/post';
+import UpdateBirthdayPage from './pages/update-page';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 function App() {
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <LandingPage />,
+    },
+    {
+      path: '/birthday/new',
+      element: <LandingPage />,
+    },
+    {
+      path: '/:id/:name/:date/update',
+      element: <UpdateBirthdayPage />,
+    },
+  ]);
+
   return (
     <>
-      <article className="max-w-2xl mx-auto py-20 text-black dark:text-slate-100 p-4">
-        <section className="flex items-center justify-between mb-4">
-          <h1 className="text-slate-950 dark:text-slate-100 text-5xl font-bold">
-            Birthdays
-          </h1>
-          <PostBirthday />
-        </section>
-        <DataTable />
-      </article>
+      <RouterProvider router={router} />
       <Toaster />
     </>
   );

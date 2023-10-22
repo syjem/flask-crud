@@ -14,8 +14,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { FieldValues, useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const PostBirthday = () => {
+  const navigate = useNavigate();
   const {
     reset,
     register,
@@ -35,6 +37,9 @@ export const PostBirthday = () => {
       });
 
       if (!response.ok) {
+        if (response.status === 404) {
+          throw new Error('Resource not found.');
+        }
         throw new Error(`Request failed. ${response.status}`);
       }
 
@@ -49,6 +54,7 @@ export const PostBirthday = () => {
         });
       }
     } catch (error) {
+      console.error('Fetch error:', error);
       toast({
         title: 'Request Failed',
         variant: 'error',
@@ -61,7 +67,9 @@ export const PostBirthday = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Add Birthday</Button>
+        <Button asChild>
+          <Link to="/birthday/new">Add Birthday</Link>
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
@@ -86,7 +94,7 @@ export const PostBirthday = () => {
                   required: 'This field is required.',
                   minLength: {
                     value: 3,
-                    message: 'Name field accept only at least 3 characters.',
+                    message: 'Please enter at least 3 characters.',
                   },
                 })}
               />
@@ -117,7 +125,10 @@ export const PostBirthday = () => {
           </div>
           <div className="flex items-center justify-end gap-5">
             <DialogClose asChild>
-              <Button variant="outline" className="w-[100px] font-semibold">
+              <Button
+                onClick={() => navigate('/')}
+                variant="outline"
+                className="w-[100px] font-semibold">
                 Close
               </Button>
             </DialogClose>

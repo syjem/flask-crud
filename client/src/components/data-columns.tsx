@@ -10,15 +10,15 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { deleteData } from '@/https/delete';
+import { useNavigate } from 'react-router-dom';
 
 export const Columns = () => {
+  const navigate = useNavigate();
   const columns: ColumnDef<personType>[] = [
     {
       accessorKey: 'id',
       header: 'ID',
-      cell: ({ row }) => (
-        <div className="capitalize pl-1">{row.getValue('id')}</div>
-      ),
+      cell: ({ row }) => <div className="pl-1">{row.getValue('id')}</div>,
     },
     {
       accessorKey: 'name',
@@ -41,9 +41,7 @@ export const Columns = () => {
           </Button>
         );
       },
-      cell: ({ row }) => (
-        <div className="lowercase pl-4">{row.getValue('date')}</div>
-      ),
+      cell: ({ row }) => <div className="pl-4">{row.getValue('date')}</div>,
     },
     {
       id: 'actions',
@@ -52,6 +50,7 @@ export const Columns = () => {
       cell: ({ row }) => {
         const person = row.original;
         const nameAndDate = `id: ${person.id}, name: ${person.name}, birthday: ${person.date}`;
+        const formatName = person.name.replace(/ /g, '-').toLowerCase();
 
         return (
           <DropdownMenu>
@@ -67,7 +66,11 @@ export const Columns = () => {
                 onClick={() => clipboard(nameAndDate)}>
                 <Copy className="h-4 w-4" /> Copy
               </DropdownMenuItem>
-              <DropdownMenuItem className="text-emerald-700 focus:text-emerald-600 dark:focus:text-emerald-600 font-semibold gap-[6px] cursor-pointer">
+              <DropdownMenuItem
+                className="text-emerald-700 focus:text-emerald-600 dark:focus:text-emerald-600 font-semibold gap-[6px] cursor-pointer"
+                onClick={() =>
+                  navigate(`/${person.id}/${formatName}/${person.date}/update`)
+                }>
                 <Edit className="h-4 w-4" /> Update
               </DropdownMenuItem>
               <DropdownMenuItem
