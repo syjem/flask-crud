@@ -1,4 +1,3 @@
-import { fetcher } from '@/utils/fetcher';
 import { useFetch } from '@/hooks/useFetch';
 import { useState, useEffect } from 'react';
 
@@ -9,6 +8,19 @@ export type personType = {
 };
 
 export const url = 'http://127.0.0.1:5000/birthdays';
+const fetcher = async (url: string) => {
+  try {
+    const response = await fetch(url);
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error(`Request failed. ${response.status}`);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export const useData = () => {
   const { data } = useFetch(url, fetcher);

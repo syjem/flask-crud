@@ -28,8 +28,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { columns } from './data-columns';
-import { useData } from '@/hooks/useData';
+import { Columns } from './data-columns';
+import { useData } from '@/https/get';
 
 export const DataTable = () => {
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -40,6 +40,7 @@ export const DataTable = () => {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
   const data = useData();
+  const columns = Columns();
 
   const table = useReactTable({
     data,

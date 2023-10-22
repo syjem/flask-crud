@@ -1,22 +1,21 @@
-import { toast } from '@/components/ui/use-toast';
-import { url } from '@/hooks/useData';
-import { FieldValues, useForm } from 'react-hook-form';
-import { Button } from '@/components/ui/button';
 import {
   Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
   DialogTitle,
+  DialogHeader,
+  DialogContent,
   DialogTrigger,
+  DialogDescription,
+  DialogClose,
 } from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
+import { url } from '@/https/get';
 import { Loader2 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { toast } from '@/components/ui/use-toast';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { FieldValues, useForm } from 'react-hook-form';
 
-const NewBirthday = () => {
-  const navigate = useNavigate();
+export const PostBirthday = () => {
   const {
     reset,
     register,
@@ -26,12 +25,9 @@ const NewBirthday = () => {
 
   const submitHandler = async (data: FieldValues) => {
     try {
-      console.log(`Data to be submitted: ${JSON.stringify(data)}`);
       const response = await fetch(url, {
         method: 'POST',
         mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -43,16 +39,23 @@ const NewBirthday = () => {
       }
 
       const serverData = await response.json();
-      console.log(`Server response: ${JSON.stringify(serverData)}`);
-      toast({
-        title: 'Server response:',
-        description: JSON.stringify(serverData),
-      });
+      const success = serverData.success;
+      const error = serverData.error;
+
+      if (success || error) {
+        toast({
+          variant: success ? 'success' : 'error',
+          description: success ? serverData.success : serverData.error,
+        });
+      }
     } catch (error) {
-      console.error(error);
+      toast({
+        title: 'Request Failed',
+        variant: 'error',
+        description: 'Something went wrong with the request.',
+      });
     }
     reset();
-    navigate('/');
   };
 
   return (
@@ -112,18 +115,22 @@ const NewBirthday = () => {
               )}
             </div>
           </div>
-          {!errors && <Button>Error</Button>}
-          <Button
-            type="submit"
-            className="self-end w-[100px] flex gap-2 items-center"
-            disabled={isSubmitting}>
-            {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}
-            Add
-          </Button>
+          <div className="flex items-center justify-end gap-5">
+            <DialogClose asChild>
+              <Button variant="outline" className="w-[100px] font-semibold">
+                Close
+              </Button>
+            </DialogClose>
+            <Button
+              type="submit"
+              className="w-[100px] flex gap-2 items-center"
+              disabled={isSubmitting}>
+              {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}
+              Add
+            </Button>
+          </div>
         </form>
       </DialogContent>
     </Dialog>
   );
 };
-
-export default NewBirthday;
