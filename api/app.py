@@ -31,7 +31,7 @@ with app.app_context():
 #     response.headers["Pragma"] = "no-cache"
 #     return response
 
-@app.route('/birthdays', methods=["GET", "POST"])
+@app.route('/birthdays', methods=["GET", "POST", "DELETE"])
 def index():
     if request.method == 'POST':
         data = request.get_json()
@@ -46,7 +46,21 @@ def index():
         user = Birthdays(name=name, date=date)
         db.session.add(user)
         db.session.commit()
-        return jsonify({"success": f"{name}'s birthday added successfully!"})
+        return jsonify({"success": "Added to the database successfully!"})
+
+
+    # DELETE REQUEST
+    if request.method == 'DELETE':
+        data = request.get_json()
+        id = data.get("id")
+
+        row = Birthdays.query.get(id)
+        if row:
+            db.session.delete(row)
+            db.session.commit()
+            return jsonify({'success': "Deleted successfully."})
+        else:
+            return jsonify({"error": "Not found."})
         
     birthdays = Birthdays.query.all()
 
