@@ -31,8 +31,9 @@ with app.app_context():
 #     response.headers["Pragma"] = "no-cache"
 #     return response
 
-@app.route('/birthdays', methods=["GET", "POST", "DELETE"])
+@app.route('/birthdays', methods=["GET", "POST", "DELETE", "PATCH"])
 def index():
+    # POST REQUEST
     if request.method == 'POST':
         data = request.get_json()
         name = data.get("name")
@@ -48,6 +49,23 @@ def index():
         db.session.commit()
         return jsonify({"success": "Added to the database successfully!"})
 
+    # PATCH REQUEST
+    if request.method == "PATCH":
+        data = request.get_json()
+        id = data.get("id")
+        name = data.get("name")
+        date = data.get("date")
+
+        row = Birthdays.query.get(id)
+        if row:
+            if name is not None:
+                row.name = name
+            if date is not None:
+                row.date = date
+            db.session.commit()
+            return jsonify({"success": "Updated successfully."})
+        else:
+            return jsonify({"error": "Not found."})
 
     # DELETE REQUEST
     if request.method == 'DELETE':
@@ -62,12 +80,10 @@ def index():
         else:
             return jsonify({"error": "Not found."})
         
-    birthdays = Birthdays.query.all()
 
-    # Create a list of dictionaries for each birthday
+    # GET REQUEST
+    birthdays = Birthdays.query.all()
     birthday_data = [{'id': birthday.id, "name": birthday.name, "date": birthday.date} for birthday in birthdays]
-        
-    # Return the data as JSON
     return jsonify(birthday_data)
 
 if __name__ == ("__main__"):
