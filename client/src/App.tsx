@@ -1,7 +1,8 @@
 import LandingPage from './pages/landing-page';
 import { Toaster } from './components/ui/toaster';
-import UpdateBirthdayPage from './pages/update-page';
+import UpdateBirthdayPage from './https/patch';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { ThemeProvider } from './theme/theme-provider';
 
 function App() {
   const router = createBrowserRouter([
@@ -21,8 +22,10 @@ function App() {
 
   return (
     <>
-      <RouterProvider router={router} />
-      <Toaster />
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <RouterProvider router={router} />
+        <Toaster />
+      </ThemeProvider>
     </>
   );
 }

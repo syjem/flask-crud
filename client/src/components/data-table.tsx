@@ -62,7 +62,7 @@ export const DataTable = () => {
   });
 
   return (
-    <div className="w-full">
+    <div className="w-full max-w-2xl mx-auto">
       <div className="flex items-center py-4 gap-4">
         <Input
           placeholder="Filter names..."
@@ -70,11 +70,13 @@ export const DataTable = () => {
           onChange={(event) =>
             table.getColumn('name')?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="max-w-sm border-slate-300"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
+            <Button
+              variant="outline"
+              className="ml-auto dark:text-slate-300 border-slate-300 dark:border-slate-800">
               Columns <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -88,7 +90,7 @@ export const DataTable = () => {
                     key={column.id}
                     className={`${
                       column.id === 'id' ? 'uppercase' : 'capitalize'
-                    }`}
+                    } dark:text-slate-400`}
                     checked={column.getIsVisible()}
                     onCheckedChange={(value) =>
                       column.toggleVisibility(!!value)
@@ -100,11 +102,13 @@ export const DataTable = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="rounded-md border">
+      <div className="rounded-md border border-slate-300 dark:border-slate-800">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow
+                key={headerGroup.id}
+                className="border-slate-300 dark:border-slate-800">
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
@@ -125,7 +129,8 @@ export const DataTable = () => {
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}>
+                  data-state={row.getIsSelected() && 'selected'}
+                  className="border-slate-300 dark:border-slate-800">
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(
@@ -154,14 +159,16 @@ export const DataTable = () => {
             variant="outline"
             size="sm"
             onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}>
+            disabled={!table.getCanPreviousPage()}
+            className="border-slate-300 dark:border-slate-800">
             Previous
           </Button>
           <Button
             variant="outline"
             size="sm"
             onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}>
+            disabled={!table.getCanNextPage()}
+            className="border-slate-300 dark:border-slate-800">
             Next
           </Button>
         </div>

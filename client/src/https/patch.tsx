@@ -2,10 +2,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from '@/components/ui/use-toast';
-import { url } from '@/https/get';
+import { baseUrl as url } from '@/utils/constants';
 import { Loader2 } from 'lucide-react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
+import { MoveLeft } from 'lucide-react';
 
 const UpdateBirthdayPage = () => {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ const UpdateBirthdayPage = () => {
 
       if (success || error) {
         toast({
-          variant: success ? 'success' : 'error',
+          variant: success ? 'info' : 'error',
           description: success ? serverData.success : serverData.error,
         });
       }
@@ -65,11 +66,22 @@ const UpdateBirthdayPage = () => {
     navigate('/');
   };
   return (
-    <article className="max-w-2xl mx-auto py-20 text-black dark:text-slate-100 p-4">
-      <section className="max-w-sm mx-auto space-y-6 border p-10 rounded-md shadow-md">
-        <h1 className="text-center text-slate-950 dark:text-slate-100 text-4xl font-bold">
-          Update / Patch
-        </h1>
+    <article className="max-w-7xl mx-auto space-y-4 py-16 text-black dark:text-slate-100 p-4">
+      <Button
+        variant="outline"
+        onClick={() => navigate(-1)}
+        className="flex items-center gap-2 w-[90px] shadow-md">
+        <MoveLeft className="h-4 w-4" /> Back
+      </Button>
+      <section className="max-w-md mx-auto space-y-6 border dark:border-slate-800 p-10 rounded-md shadow-md">
+        <div>
+          <h1 className="text-center sm:text-left text-slate-950 dark:text-slate-100 text-2xl sm:text-3xl font-bold">
+            Update
+          </h1>
+          <p className="text-center sm:text-left text-slate-500 dark:text-slate-400  text-sm">
+            Update your information here.
+          </p>
+        </div>
         <form
           noValidate
           onSubmit={handleSubmit(submitHandler)}
@@ -83,7 +95,7 @@ const UpdateBirthdayPage = () => {
               autoFocus
               autoCorrect="on"
               autoComplete="off"
-              className="capitalize border-slate-500"
+              className="capitalize border-slate-500 dark:border-slate-400"
               defaultValue={formatName}
               placeholder="Name"
               {...register('name', {
@@ -95,7 +107,7 @@ const UpdateBirthdayPage = () => {
               })}
             />
             {errors.name && (
-              <p className="text-red-500 text-xs italic">
+              <p className="text-red-500 dark:text-red-600 text-xs italic">
                 {`${errors.name.message}`}
               </p>
             )}
@@ -106,7 +118,7 @@ const UpdateBirthdayPage = () => {
               type="date"
               id="date"
               defaultValue={date}
-              className="border-slate-500"
+              className="border-slate-500 dark:border-slate-400"
               {...register('date', {
                 required: 'This field is required.',
                 minLength: {
@@ -116,7 +128,7 @@ const UpdateBirthdayPage = () => {
               })}
             />
             {errors.date && (
-              <p className="text-red-500 text-xs italic">
+              <p className="text-red-500 dark:text-red-600 text-xs italic">
                 {`${errors.date.message}`}
               </p>
             )}

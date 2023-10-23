@@ -1,5 +1,5 @@
 import { toast } from '@/components/ui/use-toast';
-import { url } from '@/https/get';
+import { baseUrl as url } from '@/utils/constants';
 
 export const deleteData = async (id: number) => {
   try {
