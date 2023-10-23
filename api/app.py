@@ -47,7 +47,7 @@ def index():
         user = Birthdays(name=name, date=date)
         db.session.add(user)
         db.session.commit()
-        return jsonify({"success": "Added to the database successfully!"})
+        return jsonify({"success": "Successfully added to the database!"})
 
     # PATCH REQUEST
     if request.method == "PATCH":
@@ -76,7 +76,7 @@ def index():
         if row:
             db.session.delete(row)
             db.session.commit()
-            return jsonify({'success': "Deleted successfully."})
+            return jsonify({'success': "Deleted from the server."})
         else:
             return jsonify({"error": "Not found."})
         
