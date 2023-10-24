@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const Columns = () => {
   const navigate = useNavigate();
+
   const columns: ColumnDef<dataType>[] = [
     {
       accessorKey: 'id',

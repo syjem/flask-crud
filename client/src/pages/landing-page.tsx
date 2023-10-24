@@ -1,6 +1,7 @@
-import { PostBirthday } from '@/https/post';
 import { DataTable } from '@/components/data-table';
 import { ToggleTheme } from '@/components/toggle-theme';
+import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 const LandingPage = () => {
   return (
@@ -12,7 +13,9 @@ const LandingPage = () => {
         <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-slate-950 dark:text-slate-100 font-bold">
           Birthdays
         </h1>
-        <PostBirthday />
+        <Button>
+          <Link to="/birthday/new">Add Birthday</Link>
+        </Button>
       </section>
       <DataTable />
     </article>

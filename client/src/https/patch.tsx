@@ -6,7 +6,6 @@ import { baseUrl as url } from '@/utils/constants';
 import { Loader2 } from 'lucide-react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import { MoveLeft } from 'lucide-react';
 
 const UpdateBirthdayPage = () => {
   const navigate = useNavigate();
@@ -67,12 +66,6 @@ const UpdateBirthdayPage = () => {
   };
   return (
     <article className="max-w-7xl mx-auto space-y-4 py-16 text-black dark:text-slate-100 p-4">
-      <Button
-        variant="outline"
-        onClick={() => navigate(-1)}
-        className="flex items-center gap-2 w-[90px] shadow-md">
-        <MoveLeft className="h-4 w-4" /> Back
-      </Button>
       <section className="max-w-md mx-auto space-y-6 border dark:border-slate-800 p-10 rounded-md shadow-md">
         <div>
           <h1 className="text-center sm:text-left text-slate-950 dark:text-slate-100 text-2xl sm:text-3xl font-bold">
@@ -133,12 +126,21 @@ const UpdateBirthdayPage = () => {
               </p>
             )}
           </div>
-          <Button
-            type="submit"
-            className="w-[100px] flex gap-2 items-center self-end"
-            disabled={isSubmitting}>
-            {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}Update
-          </Button>
+          <div className="flex items-center justify-end gap-5">
+            <Button
+              onClick={() => navigate('/')}
+              variant="outline"
+              className="w-[100px] border-slate-400 bg-slate-100">
+              Close
+            </Button>
+            <Button
+              type="submit"
+              className="w-[100px] flex gap-2 items-center self-end"
+              disabled={isSubmitting}>
+              {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}
+              Update
+            </Button>
+          </div>
         </form>
       </section>
     </article>

@@ -1,8 +1,12 @@
+import { lazy, Suspense } from 'react';
 import LandingPage from './pages/landing-page';
+import UpdateBirthdayPage from '@/https/patch';
 import { Toaster } from './components/ui/toaster';
-import UpdateBirthdayPage from './https/patch';
+import FallbackSkeleton from './components/skeleton';
+import { ThemeProvider } from '@/theme/theme-provider';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { ThemeProvider } from './theme/theme-provider';
+
+const AddBirthday = lazy(() => import('@/https/post'));
 
 function App() {
   const router = createBrowserRouter([
@@ -12,7 +16,7 @@ function App() {
     },
     {
       path: '/birthday/new',
-      element: <LandingPage />,
+      element: <AddBirthday />,
     },
     {
       path: '/:id/:name/:date/update',
@@ -23,7 +27,9 @@ function App() {
   return (
     <>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <RouterProvider router={router} />
+        <Suspense fallback={<FallbackSkeleton />}>
+          <RouterProvider router={router} />
+        </Suspense>
         <Toaster />
       </ThemeProvider>
     </>

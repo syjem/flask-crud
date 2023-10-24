@@ -1,22 +1,13 @@
-import {
-  Dialog,
-  DialogTitle,
-  DialogHeader,
-  DialogContent,
-  DialogTrigger,
-  DialogDescription,
-  DialogClose,
-} from '@/components/ui/dialog';
-import { baseUrl as url } from '@/utils/constants';
 import { Loader2 } from 'lucide-react';
-import { toast } from '@/components/ui/use-toast';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { toast } from '@/components/ui/use-toast';
+import { baseUrl as url } from '@/utils/constants';
 import { FieldValues, useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
 
-export const PostBirthday = () => {
+const PostBirthday = () => {
   const navigate = useNavigate();
   const {
     reset,
@@ -53,6 +44,7 @@ export const PostBirthday = () => {
           description: success ? serverData.success : serverData.error,
         });
       }
+      navigate('/');
     } catch (error) {
       console.error('Fetch error:', error);
       toast({
@@ -65,19 +57,16 @@ export const PostBirthday = () => {
   };
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button asChild>
-          <Link to="/birthday/new">Add Birthday</Link>
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-md dark:border-slate-800">
-        <DialogHeader>
-          <DialogTitle className="dark:text-slate-100">
+    <article className="max-w-7xl mx-auto space-y-4 py-16 text-black dark:text-slate-100 p-4">
+      <section className="max-w-md mx-auto space-y-6 border dark:border-slate-800 p-10 rounded-md shadow-md">
+        <div>
+          <h1 className="text-center sm:text-left text-slate-950 dark:text-slate-100 text-2xl sm:text-3xl font-bold">
             Add birthday
-          </DialogTitle>
-          <DialogDescription>Add your birthday here.</DialogDescription>
-        </DialogHeader>
+          </h1>
+          <p className="text-center sm:text-left text-slate-500 dark:text-slate-400  text-sm">
+            Add your birthday here.
+          </p>
+        </div>
         <form
           noValidate
           onSubmit={handleSubmit(submitHandler)}
@@ -126,14 +115,12 @@ export const PostBirthday = () => {
             </div>
           </div>
           <div className="flex items-center justify-end gap-5">
-            <DialogClose asChild>
-              <Button
-                onClick={() => navigate('/')}
-                variant="outline"
-                className="w-[100px] border-slate-400 bg-slate-100">
-                Close
-              </Button>
-            </DialogClose>
+            <Button
+              onClick={() => navigate('/')}
+              variant="outline"
+              className="w-[100px] border-slate-400 bg-slate-100">
+              Close
+            </Button>
             <Button
               type="submit"
               className="w-[100px] flex gap-2 items-center"
@@ -143,7 +130,9 @@ export const PostBirthday = () => {
             </Button>
           </div>
         </form>
-      </DialogContent>
-    </Dialog>
+      </section>
+    </article>
   );
 };
+
+export default PostBirthday;
