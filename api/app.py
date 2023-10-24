@@ -44,8 +44,8 @@ def index():
         if not date:
             return jsonify({"error": "Please enter a valid date."})
 
-        user = Birthdays(name=name, date=date)
-        db.session.add(user)
+        info = Birthdays(name=name, date=date)
+        db.session.add(info)
         db.session.commit()
         return jsonify({"success": "Successfully added to the database!"})
 
