@@ -1,8 +1,37 @@
 <div align="center">
 
-# Flask API - CRUD APP
+# Flask API - CRUD APPLICATION
 
 </div>
+
+<div align="center">
+
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/) &nbsp;
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/) &nbsp;
+<img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" alt="flask" />
+&nbsp;
+
+<br>
+
+<img src="https://img.shields.io/badge/Status-Completed-00CE80?style=for-the-badge" alt="Status Completed" />
+
+</div>
+
+<br>
+<br>
+
+## **Preview**
+
+<div align='center'>
+    <img src="./client/public/post.png" alt="Project Preview">
+</div>
+
+<div align='center'>
+    <img src="./client/public/delete-dark.png" alt="Project Preview">
+</div>
+
+<br>
+<br>
 
 ```
 - git clone https://github.com/syjem/react-flask.git
@@ -50,7 +79,7 @@ Werkzeug==3.0.0
 - Install requirements.txt
 
 ```
-- python app.py
+- flask run
 ```
 
 <br>

@@ -80,6 +80,7 @@ const PostBirthday = () => {
                 type="text"
                 id="name"
                 autoComplete="off"
+                autoFocus
                 className="border-slate-500 dark:border-slate-400"
                 {...register('name', {
                   required: 'This field is required.',
